@@ -1,0 +1,221 @@
+// ═══════════════════════════════════════════════════════════
+//  Project data — derived from the Golden-brown research docs
+// ═══════════════════════════════════════════════════════════
+
+export const PROJECT = {
+  name: 'CMB Entropy Dashboard',
+  subtitle: 'CMB Entropy Research',
+  description:
+    'High-assurance entropy generation using Cosmic Microwave Background (CMB) radiation. Investigating quantum-certified randomness for Post-Quantum Cryptography (PQC) and TrinaryVM integration.',
+  version: '2026.1',
+  status: 'active',
+};
+
+export const DOCS = [
+  {
+    id: 'hardware',
+    title: 'CMB Hardware',
+    filename: 'research_cmb_hardware.md',
+    icon: '📡',
+    color: 'accent',
+    badgeClass: 'badge-amber',
+    size: '47 KB',
+    sections: 11,
+    description:
+      'Practical hardware setups for detecting CMB radiation as an entropy source. Covers antenna options, LNB receivers, SDR backends, radiometer designs, and complete budget build paths.',
+    keyStats: [
+      { label: 'CMB Temperature', value: '2.725 K' },
+      { label: 'Best Freq. Window', value: '10–20 GHz' },
+      { label: 'Min. Budget Build', value: '~$65' },
+      { label: 'CMB Fraction (Ku LNB)', value: '~5%' },
+    ],
+    highlights: [
+      'RTL-SDR + Ku-band LNB achieves ~51 K system noise temp',
+      'Sky-dip technique resolves CMB to ±0.5–1 K accuracy',
+      'Bullseye TCXO LNB: 0.5 dB NF, ±10 kHz LO stability',
+      'UC Davis 19 GHz lab: students measure T_CMB routinely',
+      'Three build paths: $65 → $220 → $1,000+',
+    ],
+    toc: [
+      'Physics Background',
+      'SNR Challenge',
+      'Antenna Options',
+      'Receiver / LNB Options',
+      'Radiometer Designs',
+      'Affordable Hardware',
+      'DIY & Amateur Projects',
+      'CMB as Entropy / RNG Source',
+      'Key Practical Challenges',
+      'Recommended Build Paths',
+      'Sources & References',
+    ],
+  },
+  {
+    id: 'signal',
+    title: 'Signal Processing',
+    filename: 'research_cmb_signal_processing.md',
+    icon: '⚡',
+    color: 'accent',
+    badgeClass: 'badge-violet',
+    size: '71 KB',
+    sections: 11,
+    description:
+      'End-to-end Python pipeline for entropy extraction from CMB radiation. Covers GNU Radio integration, noise decomposition, Von Neumann debiasing, Toeplitz hashing, and achievable entropy rates.',
+    keyStats: [
+      { label: 'Raw Entropy Rate', value: '~19 Mbps' },
+      { label: 'Min-Entropy / sample', value: '6–7 bits' },
+      { label: 'Sample Rate (RTL-SDR)', value: '2.4 MSPS' },
+      { label: 'VN Efficiency', value: '~50%' },
+    ],
+    highlights: [
+      'GNU Radio flowgraph for live IQ sample capture',
+      'Von Neumann debiasing removes first-order bias',
+      'SHA-3 conditioning: NIST SP 800-90B approved',
+      'Toeplitz hashing: information-theoretic security proof',
+      'Spectral Kurtosis (SK) estimator for RFI detection',
+    ],
+    toc: [
+      'Overview & Physical Basis',
+      'Signal Chain: Antenna → ADC',
+      'Python Libraries for Radio Astronomy',
+      'Noise Decomposition',
+      'Entropy Extraction Methods',
+      'Achievable Entropy Rates',
+      'Open-Source RF Noise RNG Projects',
+      'Lee & Cleaver (2017): CMB as RBG',
+      'NIST SP 800-90B Health Tests',
+      'End-to-End Python Pipeline',
+      'References',
+    ],
+  },
+  {
+    id: 'mrng',
+    title: 'Cosmic Ray MRNG',
+    filename: 'research_cosmic_ray_mrng.md',
+    icon: '☄️',
+    color: 'accent',
+    badgeClass: 'badge-blue',
+    size: '39 KB',
+    sections: 13,
+    description:
+      'Cross-comparison study of cosmic ray smartphone MRNG vs CMB-based RNG. Covers muon detection physics, bit extraction methods (P1–P4), NIST SP 800-22 validation, and entropy rate analysis.',
+    keyStats: [
+      { label: 'Muon Flux (sea level)', value: '1/cm²/min' },
+      { label: 'MRNG Bit Rate', value: '0.028 bits/hr' },
+      { label: 'NIST Tests Passed', value: '6 / 6' },
+      { label: 'Hot Pixel Fraction', value: '64%' },
+    ],
+    highlights: [
+      'Kutschera 2023: first validated smartphone cosmic-ray RNG',
+      'MRNG-P124 passes all 6 applicable NIST SP 800-22 tests',
+      'SORAMAME: 3.24× rate increase at 10 km altitude',
+      '256-bit key via MRNG alone requires ~850 phone-hours',
+      'Dark noise CMOS QRNG achieves ~2.4 Mbit/s on same hardware',
+    ],
+    toc: [
+      'Overview',
+      'Key Academic Papers',
+      'How MRNG Works',
+      'Apps and Implementations',
+      'Entropy Rates & Detection Statistics',
+      'Statistical Validation Results',
+      'Cost and Practical Limitations',
+      'Comparison Tables',
+      'Published Concerns',
+      'Other Radiation RNG Approaches',
+      'Consolidated Comparison',
+      'Summary and Recommendations',
+      'References',
+    ],
+  },
+  {
+    id: 'crypto',
+    title: 'Crypto Validation',
+    filename: 'research_crypto_validation.md',
+    icon: '🔐',
+    color: 'accent',
+    badgeClass: 'badge-green',
+    size: '66 KB',
+    sections: 6,
+    description:
+      'Integration of CMB/cosmic-ray TRNGs with cryptography libraries and validation frameworks. Covers liboqs (ML-KEM/Dilithium), Linux kernel entropy pool, DRBG designs, and statistical test suites.',
+    keyStats: [
+      { label: 'Standard', value: 'NIST SP 800-90B' },
+      { label: 'PQC Algorithm', value: 'ML-KEM-768' },
+      { label: 'DRBG Types', value: 'Hash / HMAC / CTR' },
+      { label: 'Min-entropy req.', value: '≥ 0.75 bits/bit' },
+    ],
+    highlights: [
+      'liboqs OQS_randombytes_custom_algorithm() for PQC key gen',
+      'RNDADDENTROPY ioctl for direct Linux kernel pool injection',
+      'Full HMAC_DRBG implementation per NIST SP 800-90A',
+      'CTR_DRBG with AES-256: max 2^48 bytes between reseeds',
+      'NIST SP 800-22, Dieharder, TestU01, PractRand validation',
+    ],
+    toc: [
+      'Architecture Overview',
+      'Python Cryptography Libraries',
+      'Post-Quantum Cryptography (liboqs)',
+      'Linux Kernel Entropy Pool',
+      'NIST SP 800-90A DRBG',
+      'OpenSSL RAND_add()',
+      'End-to-End SDR → PQC Pipeline',
+      'Statistical Test Suites',
+      'Security Considerations',
+      'References',
+    ],
+  },
+];
+
+export const XLSX_FILE = {
+  id: 'comparison',
+  title: 'CMB vs MRNG Comparison',
+  filename: 'CMB_RNG_vs_MRNG_Comparison.xlsx',
+  icon: '📊',
+  color: 'red',
+  badgeClass: 'badge-red',
+  size: '33 KB',
+  description: 'Spreadsheet comparing CMB-based RNG and cosmic-ray MRNG across key metrics.',
+};
+
+export const KEY_METRICS = [
+  {
+    label: 'Research Documents',
+    value: '4',
+    sub: '+ 1 comparison spreadsheet',
+    icon: '📄',
+    color: 'amber',
+  },
+  {
+    label: 'Total Research',
+    value: '224 KB',
+    sub: '≈ 6,700 lines of content',
+    icon: '📚',
+    color: 'violet',
+  },
+  {
+    label: 'CMB Temperature',
+    value: '2.725 K',
+    sub: 'Rayleigh-Jeans regime at 1–30 GHz',
+    icon: '🌡️',
+    color: 'blue',
+  },
+  {
+    label: 'Entropy Rate (SDR)',
+    value: '5–10 Mbps',
+    sub: 'After conservative min-entropy estimation',
+    icon: '⚡',
+    color: 'green',
+  },
+];
+
+export const TIMELINE = [
+  { year: '2014', title: 'Cosmic Ray Apps', event: 'DECO & CRAYFIS launched', type: 'blue', sub: 'First large-scale mobile phone cosmic ray detectors.' },
+  { year: '2017', title: 'CMB Cryptography', event: 'Lee & Cleaver Analysis', type: 'amber', sub: 'Proposed CMB power spectrum as a FIPS-140-2 compliant RBG.' },
+  { year: '2017', title: 'Bell Test Randomness', event: 'Gallicchio et al.', type: 'amber', sub: 'Used CMB photons to close the freedom-of-choice loophole.' },
+  { year: '2019', title: 'CREDO Expansion', event: 'Global Monitoring', type: 'blue', sub: 'Reached >7,500 users and 2.9M images for cosmic ray research.' },
+  { year: '2020', title: 'Muon-Ra Hardware', event: 'TRNG Validation', type: 'violet', sub: 'SiPM+scintillator hardware passes full NIST and Dieharder suites.' },
+  { year: '2023', title: 'Smartphone MRNG', event: 'Kutschera Validation', type: 'blue', sub: 'First smartphone-based cosmic ray RNG to pass all NIST tests.' },
+  { year: '2023', title: 'Precision Hardware', event: '3D-Printed Horns', type: 'amber', sub: 'New Ka-band corrugated horn designs lower hardware costs.' },
+  { year: '2025', title: 'Altitude Flux', event: 'SORAMAME Results', type: 'blue', sub: 'Confirmed 3.24× rate increase at cruising altitudes (10 km).' },
+];

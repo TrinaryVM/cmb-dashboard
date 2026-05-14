@@ -1,0 +1,333 @@
+/* ═══════════════════════════════════════════════════════════
+   App Layout & Top Bar
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Root layout ────────────────────────────────────────────── */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Main area ──────────────────────────────────────────────── */
+.app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Top bar ────────────────────────────────────────────────── */
+.app-topbar {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50; /* Increased to stay above charts */
+  background: var(--bg-base); /* Ensure no transparency issues when sticky */
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    overflow: visible;
+  }
+  .app-topbar {
+    z-index: 100; /* Lower than sidebar (200) and backdrop (150) */
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    background: var(--bg-base);
+  }
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: -4px;
+}
+
+@media (max-width: 900px) {
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  animation: fadeIn 0.3s ease;
+}
+
+.topbar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.topbar-crumb-root {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.topbar-crumb-sep {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.topbar-crumb-page {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(52,211,153,0.07);
+  border: 1px solid rgba(52,211,153,0.15);
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+
+/* ── Content area ───────────────────────────────────────────── */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  outline: none;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Comparison View
+   ════════════════════════════════════════════════════════════ */
+.comparison-view {
+  padding: 32px 36px 60px;
+  max-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.comparison-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 8px; /* Reduced since parent has gap */
+}
+
+.comparison-title {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.comparison-sub {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Table ──────────────────────────────────────────────────── */
+.comparison-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 0;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.comparison-table thead tr {
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.comparison-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.comparison-table th:first-child {
+  width: 190px;
+  min-width: 160px;
+}
+
+.comparison-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+  color: var(--text-primary);
+}
+
+.comparison-dim {
+  font-weight: 500;
+  color: var(--text-primary) !important;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.comparison-table tbody tr:nth-child(even) {
+  background: rgba(255,255,255,0.01);
+}
+
+/* ── Verdict cards ──────────────────────────────────────────── */
+.comparison-verdict {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.verdict-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+
+.verdict-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--vc, var(--accent));
+}
+
+.verdict-card:hover {
+  border-color: var(--border-default);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.verdict-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.verdict-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vc, var(--accent));
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.verdict-tag {
+  margin-bottom: 12px;
+  display: inline-flex;
+}
+
+.verdict-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.verdict-vs {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .comparison-verdict {
+    grid-template-columns: 1fr;
+  }
+  .verdict-vs { display: none; }
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.app-footer {
+  margin-top: auto;
+  padding: 32px 36px;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-content {
+    overflow: visible !important;
+  }
+}
